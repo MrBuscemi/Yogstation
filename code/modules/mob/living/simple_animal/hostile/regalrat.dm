@@ -287,3 +287,16 @@
 		key = C.key
 		notify_ghosts("All rise for the rat king, ascendant to the throne in \the [get_area(src)].", source = src, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Sentient Rat Created")
 	to_chat(src, span_notice("You are an independent, invasive force on the station! Horde coins, trash, cheese, and the like from the safety of darkness!"))
+
+
+// Attempting code to have a tracker show location of nearest player controlled mouse/rat 
+/datum/antagonist/regalrat/on_gain()
+	SSticker.mode.regalrat += owner
+	owner.special_role = special_role
+	if(owner.current)
+		give_pinpointer()
+	return ..()
+/datum/antagonist/regalrat/proc/give_pinpointer() //rewrote some of the blood brothers stuff to tie into regal rat and tried to set it to locate mice
+	if(owner && owner.current)
+		var/datum/status_effect/agent_pinpointer/regalrat/P = owner.current.apply_status_effect(/datum/status_effect/agent_pinpointer/regalrat)
+		P.allowed_targets += locate(mouse.dm) 
