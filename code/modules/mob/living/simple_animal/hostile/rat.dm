@@ -198,3 +198,16 @@
 			target.reagents.add_reagent(/datum/reagent/plaguebacteria, rand(1,2), no_react = TRUE)
 			to_chat(src, span_notice("You finish licking [target]."))
 
+	//Code to have tracker show when regal rat spawns
+/mob/living/simple_animal/hostile/rat/on_gain()
+	if(src.current)
+		give_pinpointer()
+	finalize_rat()
+	return ..()
+//Code to trigger pinpointer and point to regal rat
+/mob/living/simple_animal/hostile/rat/proc/give_pinpointer()	
+	if(src)
+		var/mob/living/simple_animal/hostile/regalrat/ratking = locate(/mob/living/simple_animal/hostile/regalrat) in world
+		if (ratking)
+			var/datum/status_effect/agent_pinpointer/rat/P = src.apply_status_effect(/datum/status_effect/agent_pinpointer/rat)
+			P.allowed_targets - list(ratking)
