@@ -53,6 +53,7 @@ GLOBAL_VAR_INIT(mouse_killed, 0)
 	var/cheesed = FALSE
 	var/cheese_time = 0
 	var/food_type = /obj/item/reagent_containers/food/snacks/deadmouse
+	var/obj/item/pinpointer/pinpointer // To point towards any living regal rat
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
@@ -356,6 +357,8 @@ GLOBAL_VAR_INIT(mouse_killed, 0)
 
 
 /mob/living/simple_animal/mouse/Destroy()
+    if(pinpointer)
+        qdel(pinpointer)
 	SSmobs.cheeserats -= src
 	return ..()
 
