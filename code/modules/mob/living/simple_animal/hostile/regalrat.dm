@@ -44,6 +44,15 @@
 	name = "[kingdom] [title]"
 	language_holder += new /datum/language_holder/mouse(src)
 
+	// Gives pinpointer to all mice & rats when RegRat spawns
+	for(var/mob/living/simple_animal/rat_or_mouse in world)
+		if(istype(rat_or_mouse, /mob/living/simple_animal/hostile/rat) || istype(rat_or_mouse, /mob/living/simple_animal/mouse))
+            var/obj/item/pinpointer/pin = new /obj/item/pinpointer(rat_or_mouse)
+            pin.target = src // Set the target as the current Regal Rat
+            pin.toggle_on()
+            rat_or_mouse.pinpointer = pin // Save reference for cleanup
+            to_chat(rat_or_mouse, span_notice("A Regal Rat has been spotted. Follow the pinpointer to find your leader!"))
+
 /mob/living/simple_animal/hostile/regalrat/handle_automated_action()
 	if(prob(20))
 		riot.Trigger()
