@@ -24,6 +24,7 @@
 	lighting_cutoff = LIGHTING_CUTOFF_HIGH
 	faction = list("rat")
 	var/body_color
+	var/obj/item/pinpointer/pinpointer // To point towards any living regal rat
 
 /mob/living/simple_animal/hostile/rat/loan
 	faction = list("hostile")
@@ -40,6 +41,8 @@
 	SSmobs.cheeserats += src
 
 /mob/living/simple_animal/hostile/rat/Destroy()
+		if(pinpointer)
+			qdel(pinpointer)
 	SSmobs.cheeserats -= src
 	return ..()
 
