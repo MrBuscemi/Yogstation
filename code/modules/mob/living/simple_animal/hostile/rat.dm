@@ -41,8 +41,8 @@
 	SSmobs.cheeserats += src
 
 /mob/living/simple_animal/hostile/rat/Destroy()
-		if(pinpointer)
-			qdel(pinpointer)
+	if(pinpointer)
+		qdel(pinpointer)
 	SSmobs.cheeserats -= src
 	return ..()
 
